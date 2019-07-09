@@ -1,0 +1,21 @@
+
+<a 
+  href="#" 
+  class="list-group-item clearfix" 
+  (click)='onSelected()'>
+
+  <div class="pull-left">
+      <h4 class="list-group-item-heading">{{recipe.name}}</h4>
+      <p class="list-group-item-text">{{recipe.description}}</p>
+  </div>
+  <span class="pull-right">
+      <!-- for src, we use property approach instead of string manuplation -->
+      <!-- Both are working here fine -->
+      <img 
+          [src]="recipe.imagePath" 
+          alt="{{recipe.name}}" 
+          class='img-responsive' 
+          style='max-height: 50px;'>
+  </span>
+  
+</a>
