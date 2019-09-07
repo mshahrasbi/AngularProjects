@@ -14,10 +14,17 @@
   </div>
   <div class="col-xs-12 col-sm-4">
 
+    <!-- This now adds a new hook which will be used on all child routes
+         of the route being loaded on the servers component which is /servers
+         route here. So all these child routes will be loaded in this router at
+         the place now -->
+    <router-outlet></router-outlet>
+
+    <!--     
     <button class="btn btn-primary" (click)="onReload">Reload Page</button>
     <app-edit-server></app-edit-server>
-    <hr>
-    <!-- <app-server></app-server> -->
+    <hr> 
+    -->
   </div>
 </div>
 
