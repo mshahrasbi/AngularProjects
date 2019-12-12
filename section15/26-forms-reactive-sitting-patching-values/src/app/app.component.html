@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+
+        <div formGroupName='userData'>
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input
+                  type="text"
+                  id="username"
+                  formControlName="username"
+                  class="form-control">
+                  <span 
+                    *ngIf="!signupForm.get('userData.username').valid && signupForm.get('userData.username').touched"
+                    class="help-block">
+                    <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']">This name is invalid</span>
+                    <span *ngIf="signupForm.get('userData.username').errors['required']">Please enter a valid username</span>
+                  </span>
+              </div>
+              <div class="form-group">
+                <label for="email">email</label>
+                <input
+                  type="text"
+                  id="email"
+                  formControlName="email"
+                  class="form-control">
+                  <span *ngIf="!signupForm.get('userData.email').valid && signupForm.get('userData.email').touched">Please enter a valid email</span>
+              </div>
+        </div>
+
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input
+              type="radio"
+              formControlName="gender"
+              [value]="gender">{{ gender }}
+          </label>
+        </div>
+
+        <!-- 
+          We add directive 'formArrayName' and the name was 'hobbies', the name we chose in our typescript object. 
+          This tells angular that somewhere in this div, our array will live. now we can use this array here.
+          we add an input that actually allow the user enter the hobby. We need loop through all the controls
+          which are in this array we use *ngFor loop to loop through the hobbies.controlls, also we want o extract 
+          the index of the current iteration, we will need this to assign this input to one of these dynamiclly
+          created controls because on this input we need to add formControlName because we still need to Synchronize
+          this input with the dynamically created input. Now this dynamically input will not have a name chosen by
+          us but it is an array, so the name will simply be the index in this array, which is why we are retrieving
+          it here. So I can simply bind formControlName and now I will need property binding because I am now not
+          passing a string I am passing this local variable 'i' to pass index.
+        -->
+        <div formArrayName="hobbies">
+          <h4>Your Hobbies</h4>
+          <button class="btn btn-default" type="button" (click)="onAddHobby()">Add Hobby</button>
+          <div class="form-group" *ngFor="let hobbyControl of controls; let i = index">
+            <input type="text" class="form-control" [formControlName]="i">
+          </div>
+        </div>
+
+        <span *ngIf="!signupForm.valid && signupForm.touched">Form is invalid</span>
+
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
